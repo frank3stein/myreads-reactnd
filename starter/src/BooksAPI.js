@@ -1,6 +1,7 @@
 const api = "https://reactnd-books-api.udacity.com";
 
 let token = localStorage.token;
+console.log("Local Token: ", token);
 
 if (!token) token = localStorage.token = Math.random().toString(36).substr(-8);
 
