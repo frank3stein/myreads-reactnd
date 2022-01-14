@@ -32,8 +32,9 @@ function App() {
   // console.log("Books :", books, " Token :", token);
   useEffect(() => {
     async function getAllBooks() {
-      const allBooks = await getAll();
-      setBooks(allBooks);
+      window.localStorage.getItem("books")
+        ? setBooks(JSON.parse(window.localStorage.getItem("books")))
+        : setBooks(await getAll());
     }
     getAllBooks();
   }, [token]);
@@ -64,6 +65,10 @@ function App() {
                     setBooks={(book, id) => {
                       const newBooks = books.filter((book) => id !== book.id);
                       newBooks.push(book);
+                      window.localStorage.setItem(
+                        "books",
+                        JSON.stringify(newBooks)
+                      );
                       setBooks(newBooks);
                     }}
                   />
