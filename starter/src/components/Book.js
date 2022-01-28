@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { update } from "../BooksAPI";
 
-const Book = ({ imageLinks, setBooks, shelf, id, title, authors, book }) => {
-  // console.log("Book ", imageLinks);
+const Book = ({ imageLinks, updateBooks, shelf, id, title, authors, book }) => {
   return (
     <div className="book">
       <div className="book-top">
@@ -18,9 +16,7 @@ const Book = ({ imageLinks, setBooks, shelf, id, title, authors, book }) => {
           <select
             value={shelf}
             onChange={(event) => {
-              // console.log("event ", event.target.value);
-              // setSelectedShelf(event.target.value);
-              setBooks({ ...book, shelf: event.target.value }, book.id);
+              updateBooks({ ...book, shelf: event.target.value }, book.id);
               update(id, event.target.value);
             }}
           >
