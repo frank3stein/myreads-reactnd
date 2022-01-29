@@ -1,6 +1,6 @@
 import "./App.css";
 import { useEffect, useState, useCallback } from "react";
-import { get, getAll, update, search } from "./BooksAPI";
+import { getAll } from "./BooksAPI";
 import SearchPage from "./components/SearchPage";
 import BookShelf from "./components/Bookshelf";
 import { Link, Route, Routes } from "react-router-dom";
@@ -21,10 +21,9 @@ const sentenceToSnakeCase = (str) => {
 };
 
 function App() {
-  const [showSearchPage, setShowSearchpage] = useState(false);
   const [books, setBooks] = useState([]);
-  const [token, setToken] = useState(localStorage.token);
-  const [categories, setCategories] = useState([
+  const [token] = useState(localStorage.token);
+  const [categories] = useState([
     "Currently Reading",
     "Want to read",
     "Read",
@@ -86,13 +85,7 @@ function App() {
         ></Route>
         <Route
           path="/search"
-          element={
-            <SearchPage
-              showSearchPage={showSearchPage}
-              setShowSearchpage={setShowSearchpage}
-              updateBooks={updateBooks}
-            />
-          }
+          element={<SearchPage updateBooks={updateBooks} books={books} />}
         />
       </Routes>
     </div>

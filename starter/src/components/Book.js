@@ -1,6 +1,14 @@
 import { update } from "../BooksAPI";
 
-const Book = ({ imageLinks, updateBooks, shelf, id, title, authors, book }) => {
+const Book = ({
+  imageLinks = "",
+  updateBooks,
+  shelf,
+  id,
+  title,
+  authors,
+  book,
+}) => {
   return (
     <div className="book">
       <div className="book-top">
@@ -14,13 +22,15 @@ const Book = ({ imageLinks, updateBooks, shelf, id, title, authors, book }) => {
         ></div>
         <div className="book-shelf-changer">
           <select
-            value={shelf}
-            onChange={(event) => {
-              updateBooks({ ...book, shelf: event.target.value }, book.id);
-              update(id, event.target.value);
+            value={shelf ? shelf : "none"}
+            // defaultValue={"none"}
+            // if the default value is set, then select does not show the shelfs of the books in local library
+            onChange={async (event) => {
+              updateBooks({ ...book, shelf: event.target.value }, id);
+              update(book, event.target.value);
             }}
           >
-            <option value="none" disabled>
+            <option value="notSelected" disabled>
               Move to...
             </option>
             <option value="currentlyReading">Currently Reading</option>
